@@ -1,7 +1,5 @@
 # TBCQ
-This repo is the official implementation for ControllingPartiallyObservedIndustrialSystem  basedonOfflineReinforcementLearning-ACase  StudyofPasteThickener.
-
-The repo is not yet complete, and we will gradually improve the paper information and submit the paper code in the future.
+This repo is the official implementation for Controlling Partially Observed Industrial System based on Offline Reinforcement Learning - A Case Study of Paste Thickener.
 
 **[Zhaolin Yuan](), [Zixuan Zhang](), [Xiaorui Li](), [Yunduan Cui](), [Ming Li](), [Xiaojuan Ban]()**
 
@@ -21,3 +19,21 @@ The successful application of our pipeline in paste thickener also offers an inn
 
 ### Citation
 If you use this dataset for your research, please cite our paper:
+
+
+### QuickStart
+Our code is built off of the BCQ[https://github.com/sfujim/BCQ] repository and uses many similar components. 
+
+To run TBCQ, please use a command like this:
+```
+python -m TBCQ.main_train --multirun save_dir=tbcq env=thickener model=tbcq behavior_policy=pid 
+env.noise_type=2 env.ts=False train.ts=True train.tl=20 train.buffer_size=5e3 random_seed=0
+```
+Before conducting the multi random seed traversal test, it is necessary to manually place the model files 
+stored in the ```ckpt``` folder into the ```model_file``` folder. And rename the model file 
+as ```noise-2_tbcq-pid_buffer-5000_random-0_traj-1.pkl```. Then use a command list this:
+```
+python -m TBCQ.main_test --multirun save_dir=tbcq_test env=thickener model=tbcq behavior_policy=pid env.noise_type=2 
+env.ts=False train.ts=True train.tl=20 train.buffer_size=5e3 random_seed=0
+```
+

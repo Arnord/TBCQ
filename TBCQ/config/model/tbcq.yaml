@@ -1,0 +1,9 @@
+type: tbcq
+max_u: 2
+discount: 0.99
+tau: 0.005
+lmbda: 0.75
+phi: 0.05
+lr: 1e-3
+
+exp_type: offline

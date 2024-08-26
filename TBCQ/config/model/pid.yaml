@@ -1,0 +1,9 @@
+type: pid
+KP: 1
+KI: 0.1
+KD: 0.001
+BTC: 1
+forget_gamma: 0.7
+root_value: [80, 40]
+
+exp_type: online

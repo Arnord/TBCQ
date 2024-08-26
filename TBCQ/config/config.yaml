@@ -1,0 +1,55 @@
+random_seed: 0
+use_cuda: yes
+mode: train
+save_dir: tmp
+
+train:
+  max_timesteps: 5e3
+  eval_freq: 1e3
+  buffer_size: 5e3
+  batch_size: 128
+  plt_freq: 1e3
+  eval_episodes: 1000
+  act_period: 1
+
+  ts: False
+  tl: 10
+
+  target_buffer: False
+  mix_behavior_policy: False
+  # buffer_path: target_buffer/pid_env.noise_type=2,env.ts=False,buffer_size=5e3
+
+
+test:
+  max_timesteps: 100
+  single_step: 1e3
+  buffer_size: 5e3
+  batch_size: 128
+  plt_freq: 1e3
+  eval_episodes: 1000
+  act_period: 1
+
+  ts: False
+  tl: 10
+
+
+defaults:
+  - _self_
+  - model: bcq
+  - behavior_policy: random
+  - env: thickener
+
+hydra:
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - env
+          - save_dir
+          - model.type
+          - model
+  run:
+    dir: ckpt/${env.type}/${save_dir}/${model.type}_${hydra.job.override_dirname}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: ckpt/${env.type}/${save_dir}
+    subdir: ${model.type}_${hydra.job.override_dirname}/${now:%Y-%m-%d_%H-%M-%S}
